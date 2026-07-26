@@ -7,8 +7,8 @@ export async function renderCharge(chargeId) {
 
   return {
     id: charge.id,
-    amount: charge.amount,
-    customerEmail: charge.customer.email,
+    amount: charge.amount_total,
+    customerEmail: charge.customer.email_address,
     amount: charge.amount_total,
   }
 }
