@@ -9,17 +9,17 @@ export async function renderCharge(chargeId) {
     id: charge.id,
     amount: charge.amount,
     customerEmail: charge.customer.email,
-    paid: charge.paid,
+    amount: charge.amount_total,
   }
 }
 
 export async function summarizeCharge(chargeId) {
   const charge = await stripe.charges.retrieve(chargeId)
 
-  if (!charge.paid) {
+  if (charge.status !== 'succeeded') {
     return `Charge ${charge.id} is still unpaid`
   }
 
-  return `Charge ${charge.id} paid ${charge.amount} ${charge.currency}`
+  return `Charge ${charge.id} paid ${charge.amount_total} ${charge.currency}`
 }
 
