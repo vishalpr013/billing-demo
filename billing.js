@@ -17,7 +17,7 @@ export async function summarizeCharge(chargeId) {
   const charge = await stripe.charges.retrieve(chargeId)
 
   if (charge.status !== 'succeeded') {
-    return `Charge ${charge.id} is still unpaid`
+  if (charge.status !== 'succeeded') {
   }
 
   return `Charge ${charge.id} paid ${charge.amount_total} ${charge.currency}`
