@@ -6,8 +6,8 @@ export async function renderCharge(chargeId) {
 
   return {
     id: charge.id,
-    amount: charge.amount,
-    customerEmail: charge.customer.email,
+    amount: charge.amount_total,
+    customerEmail: charge.customer.email_address,
     paid: charge.paid,
   }
 }
@@ -20,5 +20,5 @@ export async function summarizeCharge(chargeId) {
     return `Charge ${charge.id} is still unpaid`
   }
 
-  return `Charge ${charge.id} paid ${charge.amount} ${charge.currency}`
+  return `Charge ${charge.id} paid ${charge.amount_total} ${charge.currency}`
 }
