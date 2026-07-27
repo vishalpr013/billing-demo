@@ -8,7 +8,7 @@ export async function renderCharge(chargeId) {
     id: charge.id,
     amount: charge.amount,
     customerEmail: charge.customer.email,
-    paid: charge.paid,
+    amount: charge.amount_total,
   }
 }
 
@@ -16,9 +16,9 @@ export async function summarizeCharge(chargeId) {
   const response = await fetch(`${STRIPE_MOCK_URL}/v1/charges`)
   const charge = await response.json()
 
-  if (!charge.paid) {
+  if (charge.status !== 'succeeded') {
     return `Charge ${charge.id} is still unpaid`
   }
 
-  return `Charge ${charge.id} paid ${charge.amount} ${charge.currency}`
+  return `Charge ${charge.id} paid ${charge.amount_total} ${charge.currency}`
 }
