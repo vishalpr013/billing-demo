@@ -1,9 +1,8 @@
-import Stripe from 'stripe'
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
+const STRIPE_MOCK_URL = 'https://patchflow-stripe.free.beeceptor.com'
 
 export async function renderCharge(chargeId) {
-  const charge = await stripe.charges.retrieve(chargeId)
+  const response = await fetch(`${STRIPE_MOCK_URL}/v1/charges`)
+  const charge = await response.json()
 
   return {
     id: charge.id,
@@ -14,7 +13,8 @@ export async function renderCharge(chargeId) {
 }
 
 export async function summarizeCharge(chargeId) {
-  const charge = await stripe.charges.retrieve(chargeId)
+  const response = await fetch(`${STRIPE_MOCK_URL}/v1/charges`)
+  const charge = await response.json()
 
   if (!charge.paid) {
     return `Charge ${charge.id} is still unpaid`
@@ -22,4 +22,3 @@ export async function summarizeCharge(chargeId) {
 
   return `Charge ${charge.id} paid ${charge.amount} ${charge.currency}`
 }
-
